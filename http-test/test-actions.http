@@ -1,0 +1,48 @@
+@btpAppHostname = http://localhost:4004
+@serviceName = admin
+
+
+### New Movie
+
+# @name newMovie
+POST {{btpAppHostname}}/odata/v4/{{serviceName}}/MovieSet
+content-type: application/json
+
+{
+   "RANK"        : 101,
+   "TITLE"       : "L'uomo e la passione per i dolci",
+   "DESCRIPTION" : "Una storia incredibile di un uomo che si trasforma durante le cene di team coi colleghi. Non si preoccupa di condividere il cibo coi suoi colleghi ma lo divora in un sol boccone sporcandosi tutto. Tratto da una storia vera.",
+   "GENRE"       : "Avventuroso, Fantasi",
+   "RATING"      : 5.4,
+   "YEAR"        : 2024
+}
+
+### Generate Story
+
+# @name generateStory
+POST {{btpAppHostname}}/odata/v4/{{serviceName}}/generateStory
+content-type: application/json
+
+{
+  "rank" : 13
+}
+
+### Generate Embeddings
+
+# @name generateEmbeddings
+POST {{btpAppHostname}}/odata/v4/{{serviceName}}/generateEmbeddings
+content-type: application/json
+
+
+### Similarity Search
+
+# @name similaritySearch
+POST {{btpAppHostname}}/odata/v4/{{serviceName}}/similaritySearch
+content-type: application/json
+
+{
+  "prompt" : "Film fantasy che parla di anelli del potere ed elfi"
+}
+
+
+

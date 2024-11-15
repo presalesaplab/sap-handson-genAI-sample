@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+# Bind to services for local test
+cds bind -2 sap-handson-genAI-sample-db-<username>
+cds bind -2 sap-handson-genAI-sample-auth
+cds bind -2 sap-handson-genAI-sample-destination
+cds bind -2 sap-handson-genAI-sample-ai-core

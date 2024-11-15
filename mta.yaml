@@ -1,0 +1,64 @@
+_schema-version: 3.3.0
+ID: sap-handson-genAI-sample
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+modules:
+  - name: sap-handson-genAI-sample-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+    build-parameters:
+      builder: npm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: sap-handson-genAI-sample-auth
+      - name: sap-handson-genAI-sample-db
+      - name: sap-handson-genAI-sample-destination
+      - name: sap-handson-genAI-sample-ai-core
+
+  - name: sap-handson-genAI-sample-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: sap-handson-genAI-sample-db
+
+resources:
+  - name: sap-handson-genAI-sample-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: sap-handson-genAI-sample-${space}
+        tenant-mode: dedicated
+  - name: sap-handson-genAI-sample-db-<username>
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: sap-handson-genAI-sample-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+  - name: sap-handson-genAI-sample-ai-core
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: sap-handson-genAI-sample-ai-core

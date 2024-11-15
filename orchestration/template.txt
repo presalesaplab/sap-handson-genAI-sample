@@ -1,0 +1,2 @@
+SystemMessage("You are a helpful AI assistant.")
+UserMessage("Summarize the following CV in 10 sentences: {{?orgCV}}")
