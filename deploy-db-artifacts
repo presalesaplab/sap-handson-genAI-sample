@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+# deploy to HANA
+cds deploy -2 hana
