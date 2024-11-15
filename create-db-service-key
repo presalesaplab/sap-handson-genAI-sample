@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+# Create db service key
+cf create-service-key sap-handson-genAI-sample-db-<username> sap-handson-genAI-sample-db-<username>-key

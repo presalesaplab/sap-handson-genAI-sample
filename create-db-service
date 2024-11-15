@@ -2,4 +2,3 @@
 
 # Create db service
 cf create-service hana hdi-shared sap-handson-genAI-sample-db-<username>
-cf create-service-key sap-handson-genAI-sample-db-<username> sap-handson-genAI-sample-db-<username>-key
