@@ -26,7 +26,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: sap-handson-genAI-sample-auth
-      - name: sap-handson-genAI-sample-db
+      - name: sap-handson-genAI-sample-db-<username>
       - name: sap-handson-genAI-sample-destination
       - name: sap-handson-genAI-sample-ai-core
 
@@ -36,7 +36,7 @@ modules:
     parameters:
       buildpack: nodejs_buildpack
     requires:
-      - name: sap-handson-genAI-sample-db
+      - name: sap-handson-genAI-sample-db-<username>
 
 resources:
   - name: sap-handson-genAI-sample-auth
